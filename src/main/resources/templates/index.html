@@ -1,27 +1,25 @@
 <div th:replace="~{ app :: layout ('首页', _, ~{::#main}, _) }" xmlns:th="http://www.thymeleaf.org">
-    <div id="main" class="features mb-2rem">
-        <div class="feature">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 text-center text-lg-left align-self-center">
-                        <h3 class="feature-title animate__animated animate__delay-0s animate__zoomInDown">校對</h3>
-                        <p class="lead text-muted">
-                            諸字有誤者，以雌黃塗訖，別書。<br>
-                            或多字，以雌黃圈之；<br>
-                            少者，於字旁添入；<br>
-                            或字側不容注者，即用朱圈，仍於本行上下空紙上標寫。<br>
-                            倒置，於兩字間書乙字。<br>
-                            諸點語斷處，以側為正；<br>
-                            其有人名、地點、物名等合細分者，即於中間細點。<br>
-                        </p>
-                        <div id="typed-strings">
-                            <p class="lead text-muted d-none">......</p>
+    <div id="main">
+        <div class="site-info text-center">
+            <h1 class="site-title animate__animated animate__delay-4s animate__swing">LMS</h1>
+            <div id="typed-strings">
+                <p class="site-subtitle lead text-muted">这里收集了精心制作的在线学习资源，方便系统性学习、复习、分享。</p>
+            </div>
+            <span class="site-subtitle lead text-muted" id="typed"></span>
+        </div>
+
+        <div class="features mt-2rem mb-2rem">
+            <div class="feature">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 text-center text-lg-left align-self-center">
+                            <h3 class="feature-title">视频</h3>
+                            <p class="lead text-muted">精心制作的视频合集，便于学习</p>
                         </div>
-                        <span class="lead text-muted" id="typed"></span>
-                    </div>
-                    <div class="col-lg-6 mt-3 mt-lg-0">
-                        <div class="text-center text-lg-right" data-aos="zoom-in">
-                            <a href="#"><img class="img-fluid shadow w-75" src="/img/proofread/proofread.png" alt="proofread"></a>
+                        <div class="col-lg-6 mt-3 mt-lg-0">
+                            <div class="text-center" data-aos="zoom-in">
+                                <img class="img-fluid shadow" th:src="@{/img/about/videos.png}" alt="posts">
+                            </div>
                         </div>
                     </div>
                 </div>
