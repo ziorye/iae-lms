@@ -1,0 +1,146 @@
+<div th:replace="~{ app :: layout (${lecture.collection.title}, ~{::#css_content}, ~{::#main}, ~{::#js_content}) }" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+  <div id="main" class="container mb-2rem lecture-show">
+    <h1 class="lecture-title h4" th:text="${lecture.title}">lecture.title</h1>
+    <p class="font-size-14 text-muted">
+      <i th:text="${lecture.collection.user.name}">lecture.collection.user.name</i>
+      <span> - </span>
+      <span th:text="${lecture.createdAt}">lecture.createdAt</span>
+      <span> - </span>
+      所属视频：<a th:href="@{'/videos/' + ${lecture.collection.id}}" th:text="${lecture.collection.title}">lecture.collection.title</a>
+    </p>
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="video-content">
+          <video id="video-player"
+                 class="video-js vjs-big-play-centered"
+                 controls
+                 preload="auto"
+                 width="750"
+                 height="421"
+                 data-setup="{}">
+            <source th:src="${lecture.video}">
+            <p class="vjs-no-js">
+              To view this video please enable JavaScript, and consider upgrading to a web browser that
+              <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+            </p>
+          </video>
+        </div>
+
+        <th:block th:if="${!lecture.content.isEmpty()}">
+          <p class="font-size-12 mt-3">文本内容：</p>
+          <div id="vditor-preview-element">
+            <p id="content" class="d-none" th:text="${lecture.content}">lecture.content</p>
+          </div>
+        </th:block>
+      </div>
+      <div class="col-lg-4 mt-lg-0 mt-4">
+        <div>
+          <div class="pb-2 small d-flex justify-content-between">
+            <span th:text="|共 ${lecture.collection.sections.size()} ${'个章节 •'} ${lecture.collection.lectures.size()} ${'个讲座 • 总时长'} ${@customTimeUtil.duration(lecture.collection.duration)}|">共 x 个章节 • x 个讲座 • 总时长 x</span>
+            <a href="javascript:void(0)" class="toggle-syllabus"></a>
+          </div>
+          <div class="collections-syllabus">
+            <th:block th:each="section, stats:${lecture.collection.sections}">
+            <div class="lecture-group-wrapper">
+              <div class="lecture-group-title clearfix" data-toggle="collapse"
+                   th:data-target="${'#collapse-' + section.id}"
+                   th:aria-expanded="${stats.index == 0 ? 'true' : 'false' }">
+                <div class="title" th:text="${section.title}">
+                  section.title
+                </div>
+              </div>
+            </div>
+            <div th:id="${'collapse-' + section.id}"
+                 th:class="|lecture-list collapse ${lecture.section.id == section.id ? 'show' : '' }|">
+              <ul>
+                <th:block th:each="let, stats:${section.lectures}">
+                <a th:href="@{'/videos/lecture/' + ${let.id}}">
+                  <li class="lecture">
+                    <span th:class="|w-100 lecture-title ${let.id == lecture.id ? 'active' : '' }|" th:text="${let.title}">let.title</span>
+                    <p class="font-size-12 text-monospace m-0">
+                      <span th:text="|时长: ${@customTimeUtil.duration(let.duration)}|">时长: xxx</span>
+                    </p>
+                  </li>
+                </a>
+                </th:block>
+              </ul>
+            </div>
+            </th:block>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="css_content">
+    <link href="/vendor/vditor/dist/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="/webjars/video-js/7.1.0/video-js.min.css"></link>
+  </div>
+
+  <div id="js_content">
+    <script type="module">
+      $(document).ready(function () {
+        $(".toggle-syllabus").on("click", function () {
+          $(this).toggleClass("active");
+
+          if ($(this).hasClass('active')) {
+            expandAll();
+          } else {
+            collapseAll();
+          }
+        })
+      });
+
+      function collapseAll() {
+        $(".lecture-group-title").each(function () {
+          $(this).addClass('collapsed');
+          $(this).attr('aria-expanded', false);
+          $($(this).attr('data-target')).removeClass('show');
+        });
+      }
+
+      function expandAll() {
+        $(".lecture-group-title").each(function () {
+          $(this).attr('aria-expanded', true);
+          $(this).removeClass('collapsed');
+          $($(this).attr('data-target')).addClass('show');
+        });
+      }
+    </script>
+    <script src="/vendor/vditor/dist/method.min.js"></script>
+    <script src="/webjars/video-js/7.1.0/video.min.js"></script>
+    <script>
+      videojs('video-player',{
+        playbackRates : [.5, 1, 1.5, 2]
+        ,fluid: true
+      });
+
+      $(function() {
+        var aspectRatio = 9 / 16;
+        $('.video-player').each(function () {
+          var video_id = $(this).attr('id');
+          videojs(video_id).ready(function () {
+            var myPlayer = this;
+            var width = $('#' + myPlayer.id()).parent().width();
+            myPlayer.width(width).height(width * aspectRatio);
+            window.onresize = function () {
+              var width = $('#' + myPlayer.id()).parent().width();
+              myPlayer.width(width).height(width * aspectRatio);
+            }
+          });
+        });
+      });
+    </script>
+    <script>
+      Vditor.preview(document.getElementById('vditor-preview-element'), document.getElementById('content').textContent,
+              {
+                cdn: '/vendor/vditor',
+                theme: {
+                  path: '/vendor/vditor/dist/css/content-theme',
+                },
+                lazyLoadImage: '/vendor/vditor/dist/images/img-loading.svg',
+              }
+      );
+    </script>
+  </div>
+</div>

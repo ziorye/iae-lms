@@ -1,0 +1,109 @@
+.toggle-syllabus:before {
+    content: "展开所有";
+}
+
+.toggle-syllabus.active:before {
+    content: "收起所有";
+}
+
+.collections-syllabus .lecture-group-title .title {
+    /*max-width: 60%;*/
+}
+
+.collections-syllabus .lecture-group-title {
+    position: relative;
+    padding: 10px 30px 10px 45px;
+    background: #f9f9f9;
+    border: 1px solid #e8e9eb;
+    cursor: pointer;
+    height: auto;
+    /* margin-top: 3px;*/
+    color: #505763;
+}
+
+/* --- syllabus border ---*/
+.collections-syllabus .lecture-group-title[aria-expanded=false] {
+    border-bottom: 0;
+}
+.collections-syllabus .lecture-list ul a:last-child li {
+    border-bottom: 0;
+}
+.collections-syllabus {
+    border-bottom: 1px solid #e8e9eb;
+}
+/* --- */
+
+.course-curriculum-box .course-curriculum-title {
+    padding-right: 31px;
+}
+
+.collections-syllabus .lecture-group-title:before {
+    font-family: bootstrap-icons;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    content: "\f4f2";
+    position: absolute;
+    left: 22px;
+    top: 16px;
+    font-size: 10px;
+    font-weight: 900;
+    color: #007791;
+}
+
+.collections-syllabus .lecture-group-title[aria-expanded="false"]:before {
+    content: "\f4fe";
+}
+
+.collections-syllabus .lecture-group-title[aria-expanded="true"]:before {
+    content: "\f2ea";
+}
+
+.collections-syllabus .lecture-list ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.collections-syllabus .lecture-list .lecture {
+    padding: 12px 30px 12px 22px;
+    position: relative;
+    border-bottom: 1px solid #e8e9eb;
+    border-left: 1px solid #e8e9eb;
+    border-right: 1px solid #e8e9eb;
+    color: $text-muted;
+
+    &:hover {
+        color: $primary;
+    }
+}
+
+.collections-syllabus .lecture-list .lecture:before {
+    content: none;
+}
+
+.collections-syllabus .lecture-list .lecture .lecture-title {
+    font-size: 14px;
+    /*width: 50%;*/
+    display: inline-block;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -ms-webkit-transition: 0.3s;
+
+    &:hover {
+        color: $primary;
+    }
+}
+.collections-syllabus .lecture-list .lecture .lecture-title.active {
+    color: $primary;
+}
+
+.collections-syllabus .lecture-list .lecture .lecture-time {
+    font-size: 12px;
+    width: 100px;
+    text-align: right;
+}

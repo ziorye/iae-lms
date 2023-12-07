@@ -103,6 +103,11 @@
             <artifactId>bootstrap-icons</artifactId>
             <version>1.11.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>video-js</artifactId>
+            <version>7.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

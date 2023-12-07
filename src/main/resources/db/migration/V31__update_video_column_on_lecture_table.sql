@@ -1,0 +1,10 @@
+UPDATE `lecture` SET `video` = 'https://iae-common.oss-cn-shenzhen.aliyuncs.com/lms/uploads/collection/video/docker-get-started/651f81995d188a182775d55e0ac4a081.mp4' where id = 21;
+UPDATE `lecture` SET `video` = 'https://iae-common.oss-cn-shenzhen.aliyuncs.com/lms/uploads/collection/video/docker-get-started/c4daad54be2215ff24f00566cbdf3aa8.mp4' where id = 22;
+UPDATE `lecture` SET `video` = 'https://iae-common.oss-cn-shenzhen.aliyuncs.com/lms/uploads/collection/video/docker-get-started/5703607c66dda1f67ab20f34242cf5c8.mp4' where id = 23;
+UPDATE `lecture` SET `video` = 'https://iae-common.oss-cn-shenzhen.aliyuncs.com/lms/uploads/collection/video/docker-get-started/47e1c0387b00a29572c628277296d854.mp4' where id = 24;
+UPDATE `lecture` SET `video` = 'https://iae-common.oss-cn-shenzhen.aliyuncs.com/lms/uploads/collection/video/docker-get-started/7919f5537b40b8a5d18d882ef398c18c.mp4' where id = 25;
+UPDATE `lecture` SET `video` = 'https://iae-common.oss-cn-shenzhen.aliyuncs.com/lms/uploads/collection/video/docker-get-started/f6aa053885a000dc0c9fe2b1b14f3235.mp4' where id = 26;
+UPDATE `lecture` SET `video` = 'https://iae-common.oss-cn-shenzhen.aliyuncs.com/lms/uploads/collection/video/docker-get-started/9b3b56415f02b3564252b7c3c4c699ba.mp4' where id = 27;
+UPDATE `lecture` SET `video` = 'https://iae-common.oss-cn-shenzhen.aliyuncs.com/lms/uploads/collection/video/docker-get-started/a69be5f7911dc29fc130aef69f9233d9.mp4' where id = 28;
+UPDATE `lecture` SET `video` = 'https://iae-common.oss-cn-shenzhen.aliyuncs.com/lms/uploads/collection/video/docker-get-started/c8f16be1859d31462300753c36e162d0.mp4' where id = 29;
+UPDATE `lecture` SET `video` = 'https://iae-common.oss-cn-shenzhen.aliyuncs.com/lms/uploads/collection/video/docker-get-started/d959309879c063002c9f34a43d2450bb.mp4' where id = 30;
