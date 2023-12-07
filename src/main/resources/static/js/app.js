@@ -52,3 +52,20 @@ $.fn.extend({
 
 import $ from 'jquery';
 window.$ = $;
+
+// keep aspect ratio 16:9
+const aspectRatio = 9 / 16;
+function keepRatio() {
+    $('.ratio-16x9').each(function () {
+        let targetElement = this;
+        let width = $(targetElement).parent().width();
+        $(targetElement).css({maxHeight: width * aspectRatio});
+    });
+}
+
+$(function() {
+    keepRatio();
+    $(window).on('resize', function(){
+        keepRatio();
+    });
+});

@@ -42,7 +42,7 @@ public class CollectionServiceImpl implements CollectionService {
         Collection collection = new Collection();
 
         if (collectionDto.getId() != null) {
-            collection = collectionRepository.findById(collectionDto.getId()).get();
+            collection = collectionRepository.findById(collectionDto.getId()).orElseThrow();
             collection.setUpdatedAt(LocalDateTime.now());
         } else {
             collection.setCreatedAt(LocalDateTime.now());
@@ -67,6 +67,12 @@ public class CollectionServiceImpl implements CollectionService {
     public Page<Collection> findAllPublishedDocs(int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, Sort.by("id").descending());
         return this.collectionRepository.findAllByPublishedIsTrueAndType("doc", pageable);
+    }
+
+    @Override
+    public Page<Collection> findAllPublishedVideos(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, Sort.by("id").descending());
+        return this.collectionRepository.findAllByPublishedIsTrueAndType("video", pageable);
     }
 
     @Override

@@ -20,5 +20,7 @@ public interface CollectionService {
 
     Page<Collection> findAllPublishedDocs(int pageNumber, int pageSize);
 
+    Page<Collection> findAllPublishedVideos(int pageNumber, int pageSize);
+
     void togglePublished(Long id);
 }
