@@ -1,0 +1,99 @@
+<div th:replace="~{ app :: layout (${video.title}, _, ~{::#main}, ~{::#js_content}) }" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+  <div class="container video-collections-show mb-2rem" id="main">
+    <div class="row">
+      <div class="col-lg-8">
+        <p class="font-size-12 text-muted mb-1">名称</p>
+        <h1 class="h4 mb-2rem" th:text="${video.title}">video.title</h1>
+        <p class="font-size-12 text-muted mb-1">简介</p>
+        <p class="mb-2rem" th:text="${video.description}">video.description</p>
+        <p class="font-size-12 text-muted mb-1">作者</p>
+        <p class="mb-2rem"><i th:text="${video.user.name}">video.user.name</i></p>
+        <div class="collections-syllabus-box">
+          <p class="font-size-12 text-muted mb-1">内容</p>
+          <div class="py-2 small d-flex justify-content-between">
+            <span th:text="|共 ${video.sections.size()} ${'个章节 •'} ${video.lectures.size()} ${'个讲座 • 总时长'} ${@customTimeUtil.duration(video.duration)}|">共 x 个章节 • x 个讲座 • 总时长 x</span>
+            <a href="javascript:void(0)" class="toggle-syllabus"></a>
+          </div>
+          <div class="collections-syllabus">
+            <th:block th:each="section, stats:${video.sections}">
+              <div class="lecture-group-wrapper">
+                <div class="lecture-group-title clearfix" data-toggle="collapse"
+                     th:data-target="${'#collapse-' + section.id}"
+                     th:aria-expanded="${stats.index == 0 ? 'true' : 'false' }">
+                  <div class="title float-left" th:text="${section.title}">
+                    section.title
+                  </div>
+                  <div class="float-right">
+                    <span class="total-lectures" th:text="|${section.lectures.size()} Lectures|">
+                        section.lectures.size() Lectures
+                    </span>
+                    <span class="total-time text-monospace font-size-14" th:text="${@customTimeUtil.duration(video.duration)}">
+                        section.duration (this video only one section, so section.duration = video.duration)
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div th:id="|collapse-${section.id}|"
+                   th:class="|lecture-list collapse ${stats.index == 0 ? 'show' : '' }|">
+                <ul class="font-size-14" th:if="${section.lectures.size() > 0}">
+                  <th:block th:each="lecture, stats:${section.lectures}">
+                    <a href="#">
+                      <li class="lecture">
+                        <span class="lecture-title" th:text="${lecture.title}">lecture.title</span>
+                        <div class="float-right">
+                          <span class="lecture-time text-monospace" th:text="${@customTimeUtil.duration(lecture.duration)}">lecture.duration</span>
+                        </div>
+                      </li>
+                    </a>
+                  </th:block>
+                </ul>
+              </div>
+            </th:block>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 mt-lg-0 mt-3 animated fadeInRight">
+        <div class="video-collections-sidebar">
+          <div class="cover">
+            <img th:src="${video.cover}" class="img-fluid ratio-16x9">
+          </div>
+          <div class="video-collections-sidebar-text-box text-center text-primary">
+            <p class="text-monospace">免费</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="js_content">
+    <script type="module">
+      $(document).ready(function () {
+        $(".toggle-syllabus").on("click", function () {
+          $(this).toggleClass("active");
+
+          if ($(this).hasClass('active')) {
+            expandAll();
+          } else {
+            collapseAll();
+          }
+        })
+      });
+
+      function collapseAll() {
+        $(".lecture-group-title").each(function () {
+          $(this).addClass('collapsed');
+          $(this).attr('aria-expanded', false);
+          $($(this).attr('data-target')).removeClass('show');
+        });
+      }
+
+      function expandAll() {
+        $(".lecture-group-title").each(function () {
+          $(this).attr('aria-expanded', true);
+          $(this).removeClass('collapsed');
+          $($(this).attr('data-target')).addClass('show');
+        });
+      }
+    </script>
+  </div>
+</div>

@@ -54,4 +54,25 @@ class VideoControllerTest {
 
         collectionRepository.deleteAllById(ids);
     }
+
+    @Test
+    void show() throws Exception {
+        Collection collection = new Collection();
+        collection.setTitle(UUID.randomUUID().toString());
+        collection.setSlug(UUID.randomUUID().toString());
+        collection.setType(COLLECTION_TYPE);
+        collection.setPublished(true);
+        collection.setUser(new User(1L));
+        collectionRepository.save(collection);
+
+        mvc.perform(MockMvcRequestBuilders.get("/" + COLLECTION_TYPE + "s/" + collection.getId()))
+                .andExpect(MockMvcResultMatchers.view().name("collection/" + COLLECTION_TYPE + "/show"))
+                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(" 个章节 • ")))
+                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(" 个讲座 • ")))
+                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(" 总时长 ")))
+                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("<a href=\"javascript:void(0)\" class=\"toggle-syllabus\"></a>")))
+        ;
+
+        collectionRepository.delete(collection);
+    }
 }
